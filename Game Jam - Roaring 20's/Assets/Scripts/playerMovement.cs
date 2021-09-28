@@ -9,12 +9,14 @@ public class playerMovement : MonoBehaviour
     private float vertical;
     private float horizontal;
     private float rotation = 90;
+    public Animator playerAnimation;
 
     // Start is called before the first frame update
     void Update()
     {
         horizontal = Input.GetAxis("Horizontal");
-        vertical = Input.GetAxis("Vertical");        
+        vertical = Input.GetAxis("Vertical");
+        playerAnimation.SetFloat("Horizontal Innput", rbplayer.velocity.x + rbplayer.velocity.y);
     }
 
     // Update is called once per frame
