@@ -36,6 +36,26 @@ public class playerMovement : MonoBehaviour
         {
             rotation = 90;
         }
+        else if(vertical == 0 && horizontal > 0)
+		{
+            rotation = 0;
+		}
+        else if(vertical == 0 && horizontal < 0)
+		{
+            rotation = 180;
+		}
+        else if(vertical < 0 && horizontal > 0)
+		{
+            rotation = -45;
+		}
+        else if(vertical < 0 && horizontal < 0)
+		{
+            rotation = -135;
+		}
+        else if(vertical < 0 && horizontal == 0)
+		{
+            rotation = -90;
+		}
 
     }
 }
