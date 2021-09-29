@@ -13,6 +13,12 @@ public class playerMovement : MonoBehaviour
     AudioSource audioSrc;
     bool leftMoving = false;
     bool upMoving = false;
+    private GameObject cam;
+
+    private void Start()
+    {
+        cam = GameObject.Find("Camera");
+    }
 
     void Update()
     {
@@ -92,5 +98,22 @@ public class playerMovement : MonoBehaviour
 
 
         //plays audio when moving
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.tag == "Camera Blackout")
+        {
+            cam.GetComponent<CameraMovement>().SetCam(new Vector3(other.transform.position.x, other.transform.position.y, -10), other.transform.localScale.x, other.transform.localScale.y);
+            other.GetComponent<SpriteRenderer>().enabled = false;
+        }      
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if(other.tag == "Camera Blackout")
+        {
+            other.GetComponent<SpriteRenderer>().enabled = true;
+        }
     }
 }
