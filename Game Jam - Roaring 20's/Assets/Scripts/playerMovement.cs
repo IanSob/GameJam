@@ -11,13 +11,13 @@ public class playerMovement : MonoBehaviour
     private float rotation = 90;
     public Animator playerAnimation;
     AudioSource audioSrc;
-    bool leftMoving = false;
-    bool upMoving = false;
+    bool isMoving = false;
     private GameObject cam;
 
     private void Start()
     {
         cam = GameObject.Find("Camera");
+        audioSrc = gameObject.GetComponent<AudioSource>();
     }
 
     void Update()
@@ -68,25 +68,16 @@ public class playerMovement : MonoBehaviour
             rotation = -90;
 		}
 
-        if (rbplayer.velocity.x != 0)
+        if (Mathf.Abs(rbplayer.velocity.x) + Mathf.Abs(rbplayer.velocity.y) != 0)
         {
-            leftMoving = true;
+            isMoving = true;
         }
         else
         {
-            leftMoving = false;
+            isMoving = false;
         }//checks for horizontal movement
 
-        if (vertical != 0) 
-        {
-            upMoving = true;
-        }
-        else
-        {
-            upMoving = false;
-        }//checks for vertical movement
-
-        if (upMoving)
+        if (isMoving)
         {
             if (!audioSrc.isPlaying)
                 audioSrc.Play();
