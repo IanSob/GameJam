@@ -10,12 +10,16 @@ public class playerMovement : MonoBehaviour
     private float horizontal;
     private float rotation = 90;
     public Animator playerAnimation;
+    AudioSource audioSrc;
+    bool leftMoving = false;
+    bool upMoving = false;
 
     void Update()
     {
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
         playerAnimation.SetFloat("Speed", Mathf.Abs(rbplayer.velocity.x) + Mathf.Abs(rbplayer.velocity.y));
+        audioSrc = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -58,5 +62,35 @@ public class playerMovement : MonoBehaviour
             rotation = -90;
 		}
 
+        if (rbplayer.velocity.x != 0)
+        {
+            leftMoving = true;
+        }
+        else
+        {
+            leftMoving = false;
+        }//checks for horizontal movement
+
+        if (vertical != 0) 
+        {
+            upMoving = true;
+        }
+        else
+        {
+            upMoving = false;
+        }//checks for vertical movement
+
+        if (upMoving)
+        {
+            if (!audioSrc.isPlaying)
+                audioSrc.Play();
+        }
+        else
+        {
+            audioSrc.Stop();
+        }
+
+
+        //plays audio when moving
     }
 }
