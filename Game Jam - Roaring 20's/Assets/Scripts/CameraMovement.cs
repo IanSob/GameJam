@@ -19,14 +19,16 @@ public class CameraMovement : MonoBehaviour
         
         camhor = Cam.aspect * (Cam.orthographicSize * 2);
         Debug.Log(camhor);
+        float itemAsp = xScale / yScale;
+        
 
         if (xScale > camhor)
         {
-            Cam.orthographicSize = Mathf.Ceil(yScale / 2 + xScale - camhor + 2);
+            Cam.orthographicSize = Mathf.Ceil(yScale / 2 * (itemAsp / Cam.aspect) + 1);
         }
-        else
+        else if(itemAsp < Cam.aspect)
         {
-            Cam.orthographicSize = Mathf.Ceil(yScale / 2 + 2);
+            Cam.orthographicSize = Mathf.Ceil(yScale / 2 + 1);
         }
         CamObj.transform.position = position;
     }
